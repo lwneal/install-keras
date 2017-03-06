@@ -104,7 +104,7 @@ If all went well, the following incantations will run and print the correct vers
     check libcuda
     check libcudart
 
-If the previous commands all worked, you can now run code on your GPU. Of course, implementing neural networks in CUDA by hand would take forever, so instead of writing CUDA C, we want to write Python and use a tool that will write the C code for us. That tool is called Tensorflow!
+If the previous commands all worked, you can now run code on your GPU. Of course, implementing neural networks in CUDA by hand would take forever, so instead of writing CUDA C, we want to write Python and use a tool that will write the C code for us. That tool is called Tensorflow.
 
 
 ## Step Four: CuDNN
