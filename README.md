@@ -1,12 +1,12 @@
 # Install Keras
-Keras and its leaning tower of dependencies is an incredibly powerful programming environment that allows you to harness the awesome power of deep neural networks. It's also very frustrating to install. This guide will try to map out one possible way to get Keras running and using a GPU.
+Keras is very powerful, but it is very frustrating to install. Follow this guide to install GPU-enabled Keras on Ubuntu.
 
 
-# Step Zero
+## Step Zero
 You'll want to start with a system running Ubuntu: 14.04 or 16.04 should work fine. A fresh install is recommended. The system will need at least one Nvidia GPU card, preferably a GTX780 or newer. You will need root access.
 
 
-# Step One: Drivers
+## Step One: Drivers
 
 First you need NVIDIA drivers. Note that these are NOT the default, open source drivers that ship with Ubuntu (those drivers are called Nouveau). What you need is the proprietary binary-only driver directly from Nvidia Inc, not from apt-get. You can download the latest drivers here:
 
@@ -36,7 +36,7 @@ Sun Mar  5 21:00:53 2017
 ```
 
 
-# Step Two: CUDA
+## Step Two: CUDA
 
 Now you need CUDA. You can download it here:
 
@@ -70,7 +70,7 @@ If all goes well, after CUDA is installed, you should be able to run the followi
 This means that the Nvidia compiler, `nvcc`, is installed. This is the compiler used to translate CUDA code (which looks like C) into machine code runnable by the GPU.
 
 
-# Step Three: $PATH and $LD_LIBRARY_PATH
+## Step Three: $PATH and $LD_LIBRARY_PATH
 
 You thought you installed CUDA, but it's not that easy! Tensorflow isn't just going to magically figure out where CUDA is installed: you need to spoon-feed it the tools and libraries it requires.
 
@@ -107,7 +107,7 @@ If all went well, the following incantations will run and print the correct vers
 If the previous commands all worked, you can now run code on your GPU. Of course, implementing neural networks in CUDA by hand would take forever, so instead of writing CUDA C, we want to write Python and use a tool that will write the C code for us. That tool is called Tensorflow!
 
 
-# Step Four: CuDNN
+## Step Four: CuDNN
 
 Before installing Tensorflow, we require another extra library from NVIDIA, CuDNN. This is a library of specialized fast neural network functions.
 
@@ -136,7 +136,7 @@ If all went well, the following commands should not print errors:
     function check() { lib_installed $1 && echo "$1 is installed" || echo "ERROR: $1 is NOT installed"; }
     check libcudnn
 
-# Step Four
+## Step Five: Virtualenv
 
 Now we have installed all of the underlying libraries and tools required for Tensorflow, so we can finally install Tensorflow itself... almost.
 
@@ -182,7 +182,7 @@ To confirm that you are using Virtualenv, open a new terminal window and run `wh
 
 Now you're using virtualenv. From now on, you can use `pip` without typing `sudo`. If you ever have problems with Python, you can delete your whole virtualenv and create a new one with `rm -rf $HOME/venv; virtualenv $HOME/venv`.
 
-# Step Five: Tensorflow
+## Step Six: Tensorflow
 
 Now you have the whole CUDA stack and a version of Python that might work with Tensorflow. Install GPU-enabled Tensorflow:
 
@@ -212,7 +212,7 @@ physical_device_desc: "device: 0, name: GeForce GTX 1080, pci bus id: 0000:01:00
 You should see at least one GPU device listed.
 
 
-# Step Six: Keras
+## Step Seven: Keras
 
 At this point, all the hard work is done. Just install Keras.
 
@@ -221,7 +221,7 @@ At this point, all the hard work is done. Just install Keras.
 You should be able to `import keras` and start building models.
 
 
-# Step Seven: H5Py
+## Step Eight: H5Py
 
 The first time you run demonstration Keras code, you'll probably get an error like this:
 
