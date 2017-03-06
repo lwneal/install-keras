@@ -1,5 +1,5 @@
 # Install Keras
-Keras and its leaning tower of dependencies is the most powerful programming environment in history, and also the most frustrating to install. This guide will try to map out one possible way to get it running.
+Keras and its leaning tower of dependencies is an incredibly powerful programming environment that allows you to harness the awesome power of deep neural networks. It's also very frustrating to install. This guide will try to map out one possible way to get Keras running and using a GPU.
 
 
 # Step Zero
