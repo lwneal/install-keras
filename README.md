@@ -8,11 +8,11 @@ You'll want to start with a system running Ubuntu: 14.04 or 16.04 should work fi
 
 # Step One: Drivers
 
-First you need NVIDIA drivers. Note that these are NOT the default, open source drivers that ship with Ubuntu (those drivers are called Noveau). What you need is the proprietary binary-only driver directly from Nvidia Inc, not from apt-get. You can download the latest drivers here:
+First you need NVIDIA drivers. Note that these are NOT the default, open source drivers that ship with Ubuntu (those drivers are called Nouveau). What you need is the proprietary binary-only driver directly from Nvidia Inc, not from apt-get. You can download the latest drivers here:
 
 http://www.nvidia.com/Download/index.aspx
 
-If you download them in the "run file" format, just chmod +x the file and run it, like:
+If you download them in the "runfile" format, just chmod +x the file and run it, like:
 
     chmod +x ./NVIDIA-Linux-x86_64-375.39.run
     sudo ./NVIDIA-Linux-x86_64-375.39.run
@@ -51,7 +51,7 @@ Download the runfile, make it executable, and run it:
     chmod +x cuda_8.0.61_375.26_linux-run
     sudo ./cuda_8.0.61_375.26_linux-run
 
-You will be prompted with a ridiculous huge legal agreement. Hold space to skip through it then type "accept".
+You will be prompted with a ridiculous Oracle-style legal agreement. Hold space to skip through it then type "accept".
 
 You might be asked to install the drivers again: if you already have working drivers (nvidia-smi works) then answer "no".
 
