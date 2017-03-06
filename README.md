@@ -136,6 +136,7 @@ If all went well, the following commands should not print errors:
     function check() { lib_installed $1 && echo "$1 is installed" || echo "ERROR: $1 is NOT installed"; }
     check libcudnn
 
+
 ## Step Five: Virtualenv
 
 Now we have installed all of the underlying libraries and tools required for Tensorflow, so we can finally install Tensorflow itself... almost.
@@ -154,9 +155,7 @@ then seeing a bunch of angry red text in your terminal, and typing
 
 When you run this command, you are using the pip program, which is `/usr/bin/pip` or `/usr/local/bin/pip`, to download some files and copy them into `/usr/local/lib/python2.7/dist-packages/foobar`. You are doing this as the root account (sudo) because your regular user account does not have permission to write to files inside of `/usr/`. The copies of Python and Pip that you are using exist inside the `/usr` folder, and are called the "system version" of Python.
 
-In Google-Land, where Tensorflow is developed, folks don't use the system Python. Instead, they create a _virtual environment_ for each project. The main reason for this is to enable each project to depend on a specific version of all its libraries. For example, project Foo might only work with numpy version 1.9, and project Bar might only work with numpy 1.11. Putting each project in its own Python environment is the only way to get both of them to run at the same time.
-
-Because all Google development is done using virtualenv, Google code tends not to work when used with system Python. So do as the Googlers do and use Virtualenv.
+In Google-Land, where Tensorflow is developed, folks don't use `/usr/bin/python`. Instead, they create a _virtual environment_ for each project. This creates a new copy of Python like `/home/username/venvname/bin/python`. The main reason for this is to enable each project to depend on a specific version of all its libraries. For example, project Foo might only work with numpy version 1.9, and project Bar might only work with numpy 1.11. Putting each project in its own Python environment is the only way to get both of them to run at the same time. Tensorflow tends to crash if you're not using a virtual environment.
 
 
 ### The Solution
@@ -181,6 +180,7 @@ To confirm that you are using Virtualenv, open a new terminal window and run `wh
     /home/nealla/venv/bin/pip
 
 Now you're using virtualenv. From now on, you can use `pip` without typing `sudo`. If you ever have problems with Python, you can delete your whole virtualenv and create a new one with `rm -rf $HOME/venv; virtualenv $HOME/venv`.
+
 
 ## Step Six: Tensorflow
 
