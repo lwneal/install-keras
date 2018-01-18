@@ -14,8 +14,8 @@ http://www.nvidia.com/Download/index.aspx
 
 If you download them in the "runfile" format, just chmod +x the file and run it, like:
 
-    chmod +x ./NVIDIA-Linux-x86_64-375.39.run
-    sudo ./NVIDIA-Linux-x86_64-375.39.run
+    chmod +x ./NVIDIA-Linux-x86_64-384.90.run
+    sudo ./NVIDIA-Linux-x86_64-384.90.run
 
 Note that in order to install the drivers, you might have to uninstall Noveau, turn off the graphical X server (so, you might want to do all of this over SSH or with ctrl+alt+f1) and reboot the computer once or twice.
 
@@ -51,7 +51,7 @@ Download the runfile, make it executable, and run it:
     chmod +x cuda_8.0.61_375.26_linux-run
     sudo ./cuda_8.0.61_375.26_linux-run
 
-You will be prompted with a ridiculous Oracle-style legal agreement. Hold space to skip through it then type "accept".
+You will be prompted with a long legal agreement. Hold space to skip through it then type "accept".
 
 You might be asked to install the drivers again: if you already have working drivers (nvidia-smi works) then answer "no".
 
@@ -72,7 +72,7 @@ This means that the Nvidia compiler, `nvcc`, is installed. This is the compiler 
 
 ## Step Three: $PATH and $LD_LIBRARY_PATH
 
-You thought you installed CUDA, but it's not that easy! Tensorflow isn't just going to magically figure out where CUDA is installed: you need to spoon-feed it the tools and libraries it requires.
+You thought you installed CUDA, but it's not that easy! By default, Tensorflow does not know where CUDA is installed: you need to add the CUDA installation directory to your path.
 
 First, you need the `nvcc` program to be on your path. Append a line to your .profile or .bashrc to add `/usr/local/cuda/bin/` to the `$PATH` used to search for executables. Here's a one-liner which will do that:
 
