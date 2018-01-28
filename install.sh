@@ -1,13 +1,30 @@
 #!/bin/bash
-echo "This is a dummy script for testing"
 
-echo "TODO: Check OS version"
+function fail_msg() {
+    echo $1
+    exit 1
+}
 
-echo "TODO: lshw to check for an nvidia card"
+function download_cuda() {
+    wget -nc "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux"
+}
 
-echo "TODO: check for and install nvidia drivers"
 
-echo "TODO: check for and install CUDA"
+if [ "$(id -u)" != "0" ]; then
+    echo "Install script must be run as root user"
+    echo "Usage: sudo $0"
+    exit
+fi
+
+src/sysinfo.py > info.json
+
+src/check_os_version info.json || fail_msg "Error while checking OS version"
+
+src/check_nvidia_cards info.json || fail_msg "Error while checking for available GPU cards"
+
+download_cuda || fail_msg "Error while downloading CUDA installer"
+
+./cuda_9.1.85_387.26_linux
 
 echo "TODO: locate CUDA, set PATH and LD_LIBRARY_PATH"
 

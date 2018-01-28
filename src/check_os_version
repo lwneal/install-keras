@@ -1,0 +1,14 @@
+#!/usr/bin/env python2
+import os
+import sys
+import json
+
+info_filename = sys.argv[1]
+
+info = json.load(open(info_filename))
+
+if info['ubuntu_version'] == '16.04':
+    exit(0)
+
+print("Only Ubuntu 16.04 is supported")
+exit(1)
