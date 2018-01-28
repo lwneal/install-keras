@@ -1,4 +1,5 @@
 #!/bin/bash
+CUDA_VERSION="cuda_9.1.85_387.26_linux"
 
 function fail_msg() {
     echo $1
@@ -6,7 +7,7 @@ function fail_msg() {
 }
 
 function download_cuda() {
-    wget -nc "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux"
+    wget -nc "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/$CUDA_VERSION"
 }
 
 
@@ -24,7 +25,8 @@ src/check_nvidia_cards info.json || fail_msg "Error while checking for available
 
 download_cuda || fail_msg "Error while downloading CUDA installer"
 
-./cuda_9.1.85_387.26_linux
+chmod +x $CUDA_VERSION
+./$CUDA_VERSION
 
 echo "TODO: locate CUDA, set PATH and LD_LIBRARY_PATH"
 
