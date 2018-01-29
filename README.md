@@ -4,7 +4,7 @@ Deep Learning is amazing, but installing Keras is difficult.
 
 This script will install all the requirements for you, automatically.
 
-NOTE: Currently only supports PyTorch. You should switch to PyTorch, it is much better.
+NOTE: Currently only supports PyTorch. You should switch to PyTorch.
 
 
 ## Step One
@@ -16,7 +16,7 @@ Format your hard drive and install a brand new, clean fresh copy of Ubuntu Serve
 Copy and paste the following line into your terminal:
 
 ````
-	git clone https://github.com/lwneal/install-keras && cd install-keras && sudo ./install.sh
+git clone https://github.com/lwneal/install-keras && cd install-keras && sudo ./install.sh
 ````
 
 
