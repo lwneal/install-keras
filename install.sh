@@ -79,6 +79,7 @@ sha256sum cudnn-9.1-linux-x64-v7.tgz | grep $CUDNN_SHA256 || fail_msg "Bad SHA25
 
 green "\nInstalling CUDNN...\n"
 tar xzvf cudnn-9.1-linux-x64-v7.tgz -C /usr/local || fail_msg "Failed to extract CUDNN libraries"
+ldconfig
 ldconfig -p | grep cudnn || fail_msg "Failed to find cudnn.so"
 green "CUDNN libraries are installed"
 
