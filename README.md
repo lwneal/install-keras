@@ -12,9 +12,6 @@ Format your hard drive and install a brand new, clean fresh copy of Ubuntu Serve
 
 
 ## Step Two
-
-Copy and paste the following line into your terminal:
-
 ````
 git clone https://github.com/lwneal/install-keras && cd install-keras && sudo ./install.sh
 ````
