@@ -4,8 +4,6 @@ Deep Learning is amazing, but installing Keras is difficult.
 
 This script will install all the requirements for you, automatically.
 
-NOTE: Currently only supports PyTorch. You should switch to PyTorch.
-
 
 ## Step One
 Format your hard drive and install a brand new, clean fresh copy of Ubuntu Server 16.04
@@ -20,3 +18,16 @@ git clone https://github.com/lwneal/install-keras && cd install-keras && sudo ./
 ## Step Three
 
 Have fun with deep learning. Check out the [PyTorch Examples](https://github.com/pytorch/examples).
+
+
+## Troubleshooting
+
+If anything goes wrong with your CUDA or CuDNN installations, I find the following helpful:
+
+````
+    sudo nvidia-uninstall
+    sudo apt-get remove --purge nvidia-*
+    sudo rm -r /usr/local/cuda*
+````
+
+Then try reinstalling everything again.

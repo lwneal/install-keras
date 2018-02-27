@@ -1,13 +1,14 @@
 #!/bin/bash
-# Works for Ubuntu Server 16.04 and CUDA 9.1
+# Works for Ubuntu Server 16.04 and CUDA 9.0
 
-CUDA_VERSION="cuda_9.1.85_387.26_linux"
-CUDA_URL="https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/$CUDA_VERSION"
-CUDNN_URL="http://downloads.deeplearninggroup.com/cudnn-9.1-linux-x64-v7.tgz"
-CUDNN_SHA256="1ead5da7324db35dcdb3721a8d4fc020b217c68cdb3b3daa1be81eb2456bd5e5"
+CUDA_VERSION="cuda_9.0.176_384.81_linux-run"
+CUDA_URL="https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run"
+
+CUDNN_URL="http://downloads.deeplearninggroup.com/cudnn-9.0-linux-x64-v7.tgz"
+CUDNN_SHA256="1a3e076447d5b9860c73d9bebe7087ffcb7b0c8814fd1e506096435a2ad9ab0e"
 
 function install_bare_requirements() {
-    apt install -y python python3 gcc make virtualenv
+    apt install -y python python3 gcc make virtualenv python-dev python3-dev
 }
 
 function fail_msg() {
@@ -35,6 +36,7 @@ install_bare_requirements
 
 green "\n\nChecking System Hardware...\n\n"
 src/sysinfo.py > info.json
+cat info.json
 
 green "\n\nChecking Operating System...\n\n"
 src/check_os_version info.json || fail_msg "Error while checking OS version"
@@ -57,7 +59,7 @@ nvidia-smi || fail_msg "Failed to run nvidia-smi, drivers are not properly insta
 green "NVIDIA drivers are installed"
 
 green "\nAdding nvcc to the path...\n"
-echo 'PATH=$PATH:/usr/local/cuda-9.1/bin' >> ~/.profile
+echo 'PATH=$PATH:/usr/local/cuda-9.0/bin' >> ~/.profile
 source ~/.profile
 
 green "\nChecking for nvcc install...\n"
@@ -65,7 +67,7 @@ nvcc -V || fail_msg "Error: Could not find nvcc"
 green "CUDA utilities are installed"
 
 green "\nAdding cuda .so to the library path...\n"
-echo '/usr/local/cuda-9.1/lib64/' >> /etc/ld.so.conf
+echo '/usr/local/cuda-9.0/lib64/' >> /etc/ld.so.conf
 ldconfig
 green "CUDA libraries are installed"
 
@@ -75,10 +77,10 @@ ldconfig -p | grep libcuda || fail_msg "libcuda.so is not on the LD_LIBRARY_PATH
 green "\nDownloading CUDNN...\n"
 green "\n(You agree to all NVIDIA terms and conditions)\n"
 wget -nc $CUDNN_URL || fail_msg "Failed to download cudnn-*.tgz"
-sha256sum cudnn-9.1-linux-x64-v7.tgz | grep $CUDNN_SHA256 || fail_msg "Bad SHA256 hash for cudnn-*.tgz"
+sha256sum cudnn-9.0-linux-x64-v7.tgz | grep $CUDNN_SHA256 || fail_msg "Bad SHA256 hash for cudnn-*.tgz"
 
 green "\nInstalling CUDNN...\n"
-tar xzvf cudnn-9.1-linux-x64-v7.tgz -C /usr/local || fail_msg "Failed to extract CUDNN libraries"
+tar xzvf cudnn-9.0-linux-x64-v7.tgz -C /usr/local || fail_msg "Failed to extract CUDNN libraries"
 ldconfig
 ldconfig -p | grep cudnn || fail_msg "Failed to find cudnn.so"
 green "CUDNN libraries are installed"
@@ -89,16 +91,21 @@ virtualenv -p python3 venv
 source venv/bin/activate
 
 green "Installing PyTorch to $PWD/venv..."
-pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl 
-pip install torchvision
+pip3 install http://download.pytorch.org/whl/cu90/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
+pip3 install torchvision
 
 python src/torch_mnist.py --epochs 1 || fail_msg "Failed to run PyTorch test"
 green "PyTorch works correctly"
 
-echo "\nTODO: Skipping Tensorflow install until the Google bureaucracy supports CUDA 9.1"
-#green "Installing Tensorflow..."
-#pip install "https://pypi.python.org/packages/2d/15/8dbfa203f6dc6037b04ed00876a4e0439a3486f9f3211af9f0b1132e1374/tf_nightly_gpu-1.6.0.dev20180126-cp35-cp35m-manylinux1_x86_64.whl#md5=302e2f466ed3765dc3198380c353fe42"
-#python src/tensorflow_mnist.py
+green "Installing Tensorflow..."
+pip install keras tensorflow-gpu
+python src/tensorflow_mnist.py
+green "Tensorflow works correctly"
+
+green "Installing Keras..."
+pip install --upgrade keras
+python src/keras_gan_example.py
+green "Keras works correctly"
 
 echo -n "Successfully installed PyTorch to $PWD/venv"
 echo -n "Use $PWD/venv as your default Python environment? (y/n) > "

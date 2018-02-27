@@ -8,6 +8,7 @@ info_filename = sys.argv[1]
 info = json.load(open(info_filename))
 
 if info['ubuntu_version'] == '16.04':
+    print("Detected Ubuntu {}".format(info['ubuntu_version']))
     exit(0)
 
 print("Only Ubuntu 16.04 is supported")

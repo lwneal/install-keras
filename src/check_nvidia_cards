@@ -14,8 +14,9 @@ if len(info['gpu']) == 0:
 print("Detected the following NVIDIA cards:")
 for gpu in info['gpu']:
     print('\t{}\tPCI Width {}'.format(gpu['name'], gpu['pci_width']))
+print('\n')
 
-yes = raw_input("Is this correct? (y/n)")
+yes = raw_input("Are you ready to continue? (y/n)")
 if yes.lower().startswith('y'):
     exit(0)
 
