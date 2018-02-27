@@ -110,15 +110,19 @@ green "Running Keras example..."
 python src/keras_gan_example.py
 green "Keras works correctly"
 
+USER_NAME=$(printf '%s' "${SUDO_USER:-$USER}")
+chown -R $USER_NAME venv
+green "Setting permissions on venv/ to user $USER_NAME"
+
 green "Installed Versions:"
 pip freeze | grep tensorflow
 pip freeze | grep torch
 pip freeze | grep keras
-
 nvcc --version | grep release
 nvidia-smi --help | head -1
 
 echo -n "Successfully installed PyTorch/Tensorflow/Keras to $PWD/venv"
+echo
 echo -n "Do you want to permanently use $PWD/venv as your default Python environment? (y/n) > "
 read answer
 if echo "$answer" | grep -iq "^y" ;then
