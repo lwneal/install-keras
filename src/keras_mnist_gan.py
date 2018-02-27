@@ -127,7 +127,7 @@ def build_discriminator():
 if __name__ == '__main__':
 
     # batch and latent size taken from the paper
-    epochs = 3
+    epochs = 1
     batch_size = 100
     latent_size = 100
 

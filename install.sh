@@ -59,7 +59,7 @@ nvidia-smi || fail_msg "Failed to run nvidia-smi, drivers are not properly insta
 green "NVIDIA drivers are installed"
 
 green "\nAdding nvcc to the path...\n"
-echo 'PATH=$PATH:/usr/local/cuda-9.0/bin' >> ~/.profile
+echo 'export PATH=$PATH:/usr/local/cuda-9.0/bin' >> ~/.profile
 source ~/.profile
 
 green "\nChecking for nvcc install...\n"
@@ -99,16 +99,27 @@ green "PyTorch works correctly"
 
 green "Installing Tensorflow..."
 pip install keras tensorflow-gpu
+green "Running Tensorflow example..."
 python src/tensorflow_mnist.py
 green "Tensorflow works correctly"
 
 green "Installing Keras..."
 pip install --upgrade keras
+
+green "Running Keras example..."
 python src/keras_gan_example.py
 green "Keras works correctly"
 
-echo -n "Successfully installed PyTorch to $PWD/venv"
-echo -n "Use $PWD/venv as your default Python environment? (y/n) > "
+green "Installed Versions:"
+pip freeze | grep tensorflow
+pip freeze | grep torch
+pip freeze | grep keras
+
+nvcc --version | grep release
+nvidia-smi --help | head -1
+
+echo -n "Successfully installed PyTorch/Tensorflow/Keras to $PWD/venv"
+echo -n "Do you want to permanently use $PWD/venv as your default Python environment? (y/n) > "
 read answer
 if echo "$answer" | grep -iq "^y" ;then
     echo "Adding $PWD/venv/bin/activate to ~/.profile"
