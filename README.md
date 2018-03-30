@@ -1,4 +1,4 @@
-# Install PyTorch/Tensorflow/Keras/CUDA/CUDNN/etc
+# Install PyTorch/Tensorflow/Keras
 
 Deep Learning is amazing, but installing the required tools can be difficult.
 
@@ -14,7 +14,7 @@ Format your hard drive and install a brand new, clean fresh copy of Ubuntu Serve
 git clone https://github.com/lwneal/install-keras && cd install-keras && sudo ./install.sh
 ````
 
-If you see an error message, check the [Issues[(https://github.com/lwneal/install-keras/issues) page.
+If you see an error message, check the [Issues](https://github.com/lwneal/install-keras/issues) page.
 
 
 ## Deep Learning
