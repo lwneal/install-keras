@@ -11,6 +11,10 @@ function install_bare_requirements() {
     apt install -y python python3 gcc make virtualenv python-dev python3-dev
 }
 
+function install_openai_requirements() {
+    apt install -y cmake libopenmpi-dev zlib1g-dev ffmpeg libsm6 libxext6 libxrender1
+}
+
 function fail_msg() {
     echo -e "[31m$*[39m"
     exit 1
@@ -33,6 +37,9 @@ fi
 
 green "\n\nInstalling Bootstrap Requirements...\n\n"
 install_bare_requirements
+
+green "\n\nInstalling additional requirements for OpenAI...\n\n"
+install_openai_requirements
 
 green "\n\nChecking System Hardware...\n\n"
 src/sysinfo.py > info.json
