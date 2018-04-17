@@ -28,12 +28,18 @@ function green() {
     echo -e "[32m$*[39m"
 }
 
+function delete_evil_cache() {
+    green "\n\nDeleting NVIDIA cache directory at ~/.nv\n\n"
+    rm -rf ~/.nv/
+}
 
 if [ "$(id -u)" != "0" ]; then
     echo "Install script must be run as root user"
     echo "Usage: sudo $0"
     exit
 fi
+
+delete_evil_cache
 
 green "\n\nInstalling Bootstrap Requirements...\n\n"
 install_bare_requirements
@@ -50,6 +56,8 @@ src/check_os_version info.json || fail_msg "Error while checking OS version"
 
 green "\n\nChecking Connected GPU cards...\n\n"
 src/check_nvidia_cards info.json || fail_msg "Error while checking for available GPU cards"
+
+delete_evil_cache
 
 green "\n\nDownloading CUDA installer...\n\n"
 download_cuda || fail_msg "Error while downloading CUDA installer"
@@ -127,6 +135,8 @@ pip freeze | grep torch
 pip freeze | grep keras
 nvcc --version | grep release
 nvidia-smi --help | head -1
+
+delete_evil_cache
 
 echo -n "Successfully installed PyTorch/Tensorflow/Keras to $PWD/venv"
 echo
