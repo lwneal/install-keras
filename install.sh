@@ -100,14 +100,14 @@ green "PyTorch works correctly"
 green "Installing Tensorflow..."
 pip install keras tensorflow-gpu
 green "Running Tensorflow example..."
-python src/tensorflow_mnist.py
+python src/tensorflow_mnist.py || fail_msg "Failed to run Tensorflow test"
 green "Tensorflow works correctly"
 
 green "Installing Keras..."
 pip install --upgrade keras
 
 green "Running Keras example..."
-python src/keras_gan_example.py
+python src/keras_mnist_gan.py || fail_msg "Failed to run Keras test"
 green "Keras works correctly"
 
 USER_NAME=$(printf '%s' "${SUDO_USER:-$USER}")
