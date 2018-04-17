@@ -8,7 +8,11 @@ CUDNN_URL="http://downloads.deeplearninggroup.com/cudnn-9.0-linux-x64-v7.tgz"
 CUDNN_SHA256="1a3e076447d5b9860c73d9bebe7087ffcb7b0c8814fd1e506096435a2ad9ab0e"
 
 function install_bare_requirements() {
-    apt install -y python python3 gcc make virtualenv python-dev python3-dev
+    apt install -y python python3 gcc make virtualenv python-dev python3-dev python-h5py
+}
+
+function install_openai_requirements() {
+    apt install -y cmake zlib1g-dev ffmpeg
 }
 
 function fail_msg() {
@@ -33,6 +37,9 @@ fi
 
 green "\n\nInstalling Bootstrap Requirements...\n\n"
 install_bare_requirements
+
+green "\n\nInstalling requirements for OpenAI Gym...\n\n"
+install_openai_requirements
 
 green "\n\nChecking System Hardware...\n\n"
 src/sysinfo.py > info.json
