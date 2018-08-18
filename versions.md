@@ -25,9 +25,9 @@ The system version of pip will install packages to somewhere like `/usr/local/li
 
 Ove the years a few problems emerged:
 
-    - People want to use pip without sudo, and installing things into `/usr/local/lib/python2.7/dist-packages` requires sudo
-    - People want to use Python 3, but you can't just replace `/usr/bin/python` with Python 3 because it breaks lots of other software (many packages require Python 2.7 to be in `/usr/bin/python`)
-    - People want to run many different Python applications on one computer, but sometimes applications' requirements disagree. For example, foo.py might require the installed version of Numpy to be 1.9 but bar.py might only work with version 1.8.
+- People want to use pip without sudo, and installing things into `/usr/local/lib/python2.7/dist-packages` requires sudo
+- People want to use Python 3, but you can't just replace `/usr/bin/python` with Python 3 because it breaks lots of other software (many packages require Python 2.7 to be in `/usr/bin/python`)
+- People want to run many different Python applications on one computer, but sometimes applications' requirements disagree. For example, foo.py might require the installed version of Numpy to be 1.9 but bar.py might only work with version 1.8.
 
 To fix these problems we use Virtualenv, Anaconda, or Pyenv to set up alternative Python installations in addition to `/usr/bin/python`.
 
