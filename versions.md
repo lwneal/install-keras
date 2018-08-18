@@ -124,9 +124,9 @@ If we try to run `python` we will see the following:
 
 Questions:
 
-    - What does `which python` output *before* we run the `export` command?
-    - What does `which python` output *after* we run the `export` command?
-    - What would have happened if we instead ran `export PATH=$PATH:/home/myname/mybin`?
+- What does `which python` output *before* we run the `export` command?
+- What does `which python` output *after* we run the `export` command?
+- What would have happened if we instead ran `export PATH=$PATH:/home/myname/mybin`?
 
 
 ## Virtualenv
