@@ -8,7 +8,11 @@ CUDNN_URL="http://downloads.deeplearninggroup.com/cudnn-9.0-linux-x64-v7.tgz"
 CUDNN_SHA256="1a3e076447d5b9860c73d9bebe7087ffcb7b0c8814fd1e506096435a2ad9ab0e"
 
 function install_bare_requirements() {
-    apt install -y python python3 gcc make virtualenv python-dev python3-dev
+    apt install -y python python3 gcc make virtualenv python-dev python3-dev python-h5py
+}
+
+function install_openai_requirements() {
+    apt install -y cmake zlib1g-dev ffmpeg
 }
 
 function install_openai_requirements() {
@@ -28,6 +32,10 @@ function green() {
     echo -e "[32m$*[39m"
 }
 
+function delete_evil_cache() {
+    green "\n\nDeleting NVIDIA cache directory at ~/.nv\n\n"
+    rm -rf ~/.nv/
+}
 
 if [ "$(id -u)" != "0" ]; then
     echo "Install script must be run as root user"
@@ -35,10 +43,12 @@ if [ "$(id -u)" != "0" ]; then
     exit
 fi
 
+delete_evil_cache
+
 green "\n\nInstalling Bootstrap Requirements...\n\n"
 install_bare_requirements
 
-green "\n\nInstalling additional requirements for OpenAI...\n\n"
+green "\n\nInstalling requirements for OpenAI Gym...\n\n"
 install_openai_requirements
 
 green "\n\nChecking System Hardware...\n\n"
@@ -50,6 +60,8 @@ src/check_os_version info.json || fail_msg "Error while checking OS version"
 
 green "\n\nChecking Connected GPU cards...\n\n"
 src/check_nvidia_cards info.json || fail_msg "Error while checking for available GPU cards"
+
+delete_evil_cache
 
 green "\n\nDownloading CUDA installer...\n\n"
 download_cuda || fail_msg "Error while downloading CUDA installer"
@@ -107,14 +119,14 @@ green "PyTorch works correctly"
 green "Installing Tensorflow..."
 pip install keras tensorflow-gpu
 green "Running Tensorflow example..."
-python src/tensorflow_mnist.py
+python src/tensorflow_mnist.py || fail_msg "Failed to run Tensorflow test"
 green "Tensorflow works correctly"
 
 green "Installing Keras..."
 pip install --upgrade keras
 
 green "Running Keras example..."
-python src/keras_gan_example.py
+python src/keras_mnist_gan.py || fail_msg "Failed to run Keras test"
 green "Keras works correctly"
 
 USER_NAME=$(printf '%s' "${SUDO_USER:-$USER}")
@@ -127,6 +139,8 @@ pip freeze | grep torch
 pip freeze | grep keras
 nvcc --version | grep release
 nvidia-smi --help | head -1
+
+delete_evil_cache
 
 echo -n "Successfully installed PyTorch/Tensorflow/Keras to $PWD/venv"
 echo
