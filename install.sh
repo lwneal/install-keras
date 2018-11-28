@@ -110,8 +110,8 @@ virtualenv -p python3 venv
 source venv/bin/activate
 
 green "Installing PyTorch to $PWD/venv..."
-pip3 install http://download.pytorch.org/whl/cu90/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
-pip3 install torchvision
+pip install torch
+pip install torchvision
 
 python src/torch_mnist.py --epochs 1 || fail_msg "Failed to run PyTorch test"
 green "PyTorch works correctly"
